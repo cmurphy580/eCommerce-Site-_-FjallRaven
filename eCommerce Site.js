@@ -18,38 +18,44 @@ cart.addEventListener('click', displayCartItems)
 /*---------------------------------------------------------------*/
 /*---------------------------------------------------------------*/
 const addToCart = document.querySelectorAll('.submit');
-//const colorOption = document.querySelectorAll('.colors-wrap');
-//const sizeOption = document.querySelectorAll('name="colors"');
 const itemsCount = document.querySelector('.items');
 const sumTotal = document.querySelector('.sum-total');
 let itemsArray = [];
 let total = 0;
 
-
 function sendToCart (event) {
-	let color, size,  
-		description = event.path[2].children[1].children[1].textContent,
-		price = event.path[2].children[1].children[2].textContent,
-		addToTotal = event.path[2].children[1].children[2].dataset.price;
-	/**/
-	if (event.path[2].children[0].children.length === 2) {
-		size = event.path[2].children[0].children[1].children.sizes.value;
-		color = event.path[2].children[0].children[0].children.colors.value;
-	} else if (event.path[2].children[0].children.length === 1) {
-		color = event.path[2].children[0].children[0].children[0].children.colors.value;
+	
+	let image = this.parentNode.parentNode.children[1].children[0].src,
+	 	color,
+	 	size,
+	 	description = this.parentNode.parentNode.children[1].children[1].textContent,
+	 	price = this.parentNode.parentNode.children[1].children[2].textContent,
+	 	addToTotal = this.parentNode.parentNode.children[1].children[2].dataset.price;
+		console.log(image)
+
+	if (this.parentNode.parentNode.children[0].children.length === 2) { //input lengths
+		size = this.parentNode.parentNode.children[0].children[1].children[0].value;
+		color = this.parentNode.parentNode.children[0].children[0].children[0].value;
+		this.parentNode.parentNode.children[0].children[0].children[0].selectedIndex = 0; //Resets Color Input
+		this.parentNode.parentNode.children[0].children[1].children[0].selectedIndex = 0; //Resets Size Input
+	} else if (this.parentNode.parentNode.children[0].children.length === 1) { 
+		color = this.parentNode.parentNode.children[0].children[0].children[0].children[0].value;
+		this.parentNode.parentNode.children[0].children[0].children[0].children[0].selectedIndex = 0; //Resets Color Input
 	}
 	if (color === 'Color' || size === 'Size') {
 		alert("You need to choose a COLOR and SIZE!");
 	} else {
-		itemsArray.push({description: description, color: color, size: size, price: price});
+		itemsArray.push({image: image, description: description, color: color, size: size, price: price});
+		
 	}
 	itemsCount.textContent = itemsArray.length;
-	/**/
-	itemsArray.forEach((item,i)=> {
+
+	itemsArray.forEach((item,i) => {
 		if (i === itemsArray.length-1) {
-			let node = document.createElement('li'); 
+			let node = document.createElement('li'); //<img class="cart-img" src="${itemsArray[i].image}">
 			node.innerHTML = `
 				<a class="item-row">
+					<img class="cart-img" src="${itemsArray[i].image}">
     				<p class="cart-description">${itemsArray[i].description}</p>
     				<p class="cart-color">${itemsArray[i].color}</p>
     				<p class="cart-size">${itemsArray[i].size}</p>
@@ -60,14 +66,13 @@ function sendToCart (event) {
 		}
 
 	});
-	/**/
+	
 	itemsArray.forEach((item,i) => {
 		if (i === itemsArray.length-1) {
 			total += +addToTotal;
 		}
 		sumTotal.innerHTML = `<p>Total: $${total}</p>`
 	});
-	/**/
 }
 addToCart.forEach(button => button.addEventListener('click', sendToCart));
 /*---------------------------------------------------------------*/
@@ -94,7 +99,7 @@ function previousImage(){
 	if (index < 0)
 		index = 3;
 	background.style.backgroundImage = `url("${pictures[index].picture}")`;
-	background.style.transition = "1s";
+	background.style.transition = "1.0s";
 	background.style.transitionTimingFunction = 'ease-in-out';
 	subTitle.textContent = `${pictures[index].subTitle}`;
 }
