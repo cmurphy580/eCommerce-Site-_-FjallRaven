@@ -46,33 +46,31 @@ function sendToCart (event) {
 		alert("You need to choose a COLOR and SIZE!");
 	} else {
 		itemsArray.push({image: image, description: description, color: color, size: size, price: price});
-		
+		itemsArray.forEach((item,i) => {
+			if (i === itemsArray.length-1) {
+				let node = document.createElement('li'); //<img class="cart-img" src="${itemsArray[i].image}">
+				node.innerHTML = `
+					<a class="item-row">
+						<img class="cart-img" src="${itemsArray[i].image}">
+		    			<p class="cart-description">${itemsArray[i].description}</p>
+		    			<p class="cart-color">${itemsArray[i].color}</p>
+		    			<p class="cart-size">${itemsArray[i].size}</p>
+		    			<p class="cart-price">${itemsArray[i].price}</p>
+		    		</a>
+				`
+				cartBox.appendChild(node);
+			}
+		});
+		itemsArray.forEach((item,i) => {
+			if (i === itemsArray.length-1) {
+				total += +addToTotal;
+			}
+			sumTotal.innerHTML = `<p>Total: $${total}</p>`
+		});
 	}
 	itemsCount.textContent = itemsArray.length;
 
-	itemsArray.forEach((item,i) => {
-		if (i === itemsArray.length-1) {
-			let node = document.createElement('li'); //<img class="cart-img" src="${itemsArray[i].image}">
-			node.innerHTML = `
-				<a class="item-row">
-					<img class="cart-img" src="${itemsArray[i].image}">
-    				<p class="cart-description">${itemsArray[i].description}</p>
-    				<p class="cart-color">${itemsArray[i].color}</p>
-    				<p class="cart-size">${itemsArray[i].size}</p>
-    				<p class="cart-price">${itemsArray[i].price}</p>
-    			</a>
-			`
-			cartBox.appendChild(node);
-		}
-
-	});
-	
-	itemsArray.forEach((item,i) => {
-		if (i === itemsArray.length-1) {
-			total += +addToTotal;
-		}
-		sumTotal.innerHTML = `<p>Total: $${total}</p>`
-	});
+	console.log(itemsArray);
 }
 addToCart.forEach(button => button.addEventListener('click', sendToCart));
 /*---------------------------------------------------------------*/
