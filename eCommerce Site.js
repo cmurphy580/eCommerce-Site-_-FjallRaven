@@ -85,7 +85,7 @@ const subTitle = document.querySelector('.sub-title');
 let index = 0; 
 
 const pictures = {
-	0: {picture: "fjällräven bkg1.jpg", subTitle: "Nikkaluokta-Abisko / September 12-17, 2014"},
+	0: {picture: "fjallraven bkg1.jpg", subTitle: "Nikkaluokta-Abisko / September 12-17, 2014"},
 	1: {picture: "fjallraven bkg7.jpg", subTitle: "The Kings Trail / October 29-31, 2015"},
 	2: {picture: "fjallraven bkg3.jpg", subTitle: "Norrland Forest / June 3-10, 2016"},
 	3: {picture: "fjallraven bkg9.jpg", subTitle: "Kolmården Forest / November 13-18, 2017"}
